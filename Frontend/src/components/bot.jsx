@@ -1,6 +1,7 @@
 import React ,{useEffect,useRef,useState} from 'react'
 import axios from 'axios'
 import {FaUserCircle} from 'react-icons/fa'
+import {API_URL} from '../config/api'
 function Bot() {
 
     const [messages,setMessages]=useState([])
@@ -16,7 +17,7 @@ function Bot() {
         setLoading(true);
         if(!input.trim())return ;
         try{
-            const res=await axios.post("http://localhost:4002/bot/v1/message",{
+            const res=await axios.post(`${API_URL}/bot/v1/message`,{
                 text:input
             })
 
