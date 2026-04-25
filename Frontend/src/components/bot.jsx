@@ -1,4 +1,6 @@
 import React ,{useEffect,useRef,useState} from 'react'
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"
 import axios from 'axios'
 import {FaUserCircle} from 'react-icons/fa'
 import {API_URL} from '../config/api'
@@ -17,7 +19,7 @@ function Bot() {
         setLoading(true);
         if(!input.trim())return ;
         try{
-            const res=await axios.post(`${API_URL}/bot/v1/message`,{
+            const res=await axios.post(`http://localhost:4002/bot/v1/message`,{
                 text:input
             })
 
@@ -41,7 +43,11 @@ function Bot() {
     const handleKeyPress=(e)=>{
         if(e.key==='Enter')handleSendMessage();
     }
-
+  const formatResponse=(text)=>{
+    return text
+    .replace(/:\s*-\s*/g,":\n-")
+    .replace(/\s-\s/g,"\n-")
+  }
   return (
     <div className='flex flex-col min-h-screen bg-[#0d0d0d] text-white'>
       {/* Header */}
@@ -67,13 +73,15 @@ function Bot() {
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`px-4 py-2 rounded-xl max-w-[75%] ${
+            className={`markdown px-4 py-2 rounded-xl max-w-[75%] ${
               msg.sender === "user"
                 ? "bg-blue-600 text-white self-end"
                 : "bg-gray-800 text-gray-100 self-start"
             }`}
           >
-            {msg.text}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {formatResponse(msg.text)}
+            </ReactMarkdown>
           </div>
         ))}
 
