@@ -21,7 +21,7 @@ function Bot() {
         setLoading(true);
         setInput("");
         try{
-            const res=await axios.post("http://localhost:4002/bot/v1/message",{
+            const res=await axios.post(`${API_URL}/bot/v1/message`,{
                 text:input
             })
             console.log("Full data",res);
@@ -52,7 +52,7 @@ function Bot() {
 <header className="fixed top-0 left-0 w-full border-b border-gray-800 bg-[#0d0d0d] z-10">
   <div className="container mx-auto flex justify-between items-center px-6 py-4">
     <div className='flex flex-row items-center gap-2'>
-      <img src="public/iconsBB.png" alt="" className='w-10 h-10' />
+      <img src="/iconsBB.png" alt="Logo" className='w-10 h-10' />
       <h1 className="text-lg font-bold">BolBuddy</h1>
     </div>
     <FaUserCircle size={30} className="cursor-pointer" />
