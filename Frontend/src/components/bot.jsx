@@ -16,18 +16,20 @@ function Bot() {
     },[messages])
 
     const handleSendMessage=async ()=>{
+        
+        if(!input.trim() || loading)return ;
         setLoading(true);
-        if(!input.trim())return ;
+        setInput("");
         try{
-            const res=await axios.post(`${API_URL}/bot/v1/message`,{
+            const res=await axios.post("http://localhost:4002/bot/v1/message",{
                 text:input
             })
-
+            console.log("Full data",res);
+            console.log("data",res.data);
             if(res.status===200){
-                setMessages([...messages,{text:res.data.userMessage, sender:'user'},{text:res.data.botMessage, sender:'bot'}]);
+                setMessages([...messages,{text:res.data.userMessage,sender:'user'},{text:res.data.botMessage, sender:'bot'}]);
             }
 
-            console.log(res.data);
           
         }
         catch(error){
@@ -43,17 +45,16 @@ function Bot() {
     const handleKeyPress=(e)=>{
         if(e.key==='Enter')handleSendMessage();
     }
-  const formatResponse=(text)=>{
-    return text
-    .replace(/:\s*-\s*/g,":\n-")
-    .replace(/\s-\s/g,"\n-")
-  }
+  
   return (
     <div className='flex flex-col min-h-screen bg-[#0d0d0d] text-white'>
       {/* Header */}
 <header className="fixed top-0 left-0 w-full border-b border-gray-800 bg-[#0d0d0d] z-10">
   <div className="container mx-auto flex justify-between items-center px-6 py-4">
-    <h1 className="text-lg font-bold">BolBuddy</h1>
+    <div className='flex flex-row items-center gap-2'>
+      <img src="public/iconsBB.png" alt="" className='w-10 h-10' />
+      <h1 className="text-lg font-bold">BolBuddy</h1>
+    </div>
     <FaUserCircle size={30} className="cursor-pointer" />
   </div>
 </header>
@@ -73,15 +74,14 @@ function Bot() {
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`markdown px-4 py-2 rounded-xl max-w-[75%] ${
+            className={`markdown px-4 py-2 rounded-xl max-w-[75%] whitespace-pre-wrap ${
               msg.sender === "user"
                 ? "bg-blue-600 text-white self-end"
                 : "bg-gray-800 text-gray-100 self-start"
             }`}
           >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {formatResponse(msg.text)}
-            </ReactMarkdown>
+            {msg.text}
+            
           </div>
         ))}
 
@@ -109,13 +109,21 @@ function Bot() {
         value={input}
         onChange={(e)=>setInput(e.target.value)}
         onKeyDown={handleKeyPress}
+        disabled={loading}
       />
 
       <button
       onClick={handleSendMessage}
-        className="bg-green-600 hover:bg-green-700 px-4 py-1 rounded-full text-white font-medium transition-colors"
+      disabled={loading}
+        className={`flex items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
+          loading?
+          "bg-gray-400 cursor-not-allowed"
+          :"bg-green-600 hover:bg-green-700"
+        }`}
       >
-        Send
+        {loading && (<div className='w-4 h-4 border-2 border-white 
+        border-t-transparent rounded-full animate-spin'></div>)}
+        {loading?"Sending...":"Send"}
       </button>
 
     </div>
