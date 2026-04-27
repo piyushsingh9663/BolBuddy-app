@@ -98,9 +98,9 @@ function Bot() {
 </main>
 
 {/* Footer */}
-<footer className="fixed bottom-0 left-0 w-full px-4 py-2 bg-[#0d0d0d] z-10">
+<footer className="fixed bottom-0 left-0 w-full px-6 py-3 bg-[#0d0d0d] z-10">
     <div className="w-full max-w-2xl mx-auto flex items-center border-t border-gray-600 bg-gray-900
-     rounded-full px-4 py-2 shadow-lg overflow-hidden">
+     rounded-full px-3 py-1.5 shadow-lg overflow-hidden">
       
       <input
         type="text"
