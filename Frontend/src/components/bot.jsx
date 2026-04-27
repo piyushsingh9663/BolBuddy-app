@@ -115,7 +115,7 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 w-[90px] sm:w-auto justify-center  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
+        className={`flex shrink-0 w-[22.5rem] max-w-28 sm:w-auto justify-center  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"
           :"bg-green-600 hover:bg-green-700"
