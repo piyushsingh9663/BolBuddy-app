@@ -99,8 +99,8 @@ function Bot() {
 
 {/* Footer */}
 <footer className="fixed bottom-0 left-0 w-full border-t border-gray-800 bg-[#0d0d0d] z-10">
-  <div className="w-full max-w-full mx-auto flex justify-center px-3 py-2 ">
-    <div className="w-full max-w-full flex items-center bg-gray-900 rounded-full px-3 py-2 shadow-lg overflow-hidden">
+  <div className="w-full max-w-full mx-auto flex justify-center px-4 py-2 ">
+    <div className="w-full max-w-full flex items-center bg-gray-900 rounded-full px-4 py-2 shadow-lg overflow-hidden">
       
       <input
         type="text"
@@ -115,7 +115,7 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 w-auto max-w-[100px] sm:w-auto justify-center  items-center gap-2 px-3 py-2 rounded-full text-white font-medium transition ${
+        className={`flex shrink-0 w-auto max-w-[100px] sm:w-auto justify-center  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"
           :"bg-green-600 hover:bg-green-700"
