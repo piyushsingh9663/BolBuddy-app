@@ -115,7 +115,7 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 max-w-30  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
+        className={`flex shrink-0 w-[90px] sm:w-auto justify-center  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"
           :"bg-green-600 hover:bg-green-700"
@@ -123,7 +123,9 @@ function Bot() {
       >
         {loading && (<div className='w-4 h-4 border-2 border-white 
         border-t-transparent rounded-full animate-spin'></div>)}
-        {loading?"Wait...":"Send"}
+        <span className='truncate'>
+                  {loading?"Wait...":"Send"}
+        </span>
       </button>
 
     </div>
