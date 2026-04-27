@@ -99,7 +99,7 @@ function Bot() {
 
 {/* Footer */}
 <footer className="fixed bottom-0 left-0 w-full border-t border-gray-800 bg-[#0d0d0d] z-10">
-  <div className="w-full max-w-full mx-auto flex justify-center px-3 py-2 box-border">
+  <div className="w-full max-w-full mx-auto flex justify-center px-3 py-2 ">
     <div className="w-full max-w-full flex items-center bg-gray-900 rounded-full px-3 py-2 shadow-lg overflow-hidden">
       
       <input
