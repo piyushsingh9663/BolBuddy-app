@@ -98,13 +98,13 @@ function Bot() {
 </main>
 
 {/* Footer */}
-<footer className="fixed bottom-0 left-0 w-full border-t border-gray-800 bg-[#0d0d0d] z-10">
-  <div className="w-full max-w-full mx-auto flex justify-center px-4 py-2 ">
-    <div className="w-full max-w-full flex items-center bg-gray-900 rounded-full px-4 py-2 shadow-lg overflow-hidden">
+<footer className="fixed bottom-0 left-0 w-full px-4 py-2 bg-[#0d0d0d] z-10">
+    <div className="w-full max-w-2xl mx-auto flex items-center border-t border-gray-600 bg-gray-900
+     rounded-full px-4 py-2 shadow-lg overflow-hidden">
       
       <input
         type="text"
-        className="flex-1 min-w-0 bg-transparent outline-none text-white placeholder-gray-400 px-2"
+        className="flex grow min-w-0 max-w-full bg-transparent outline-none text-white placeholder-gray-400 px-2"
         placeholder="Ask BolBuddy..."
         value={input}
         onChange={(e)=>setInput(e.target.value)}
@@ -129,7 +129,6 @@ function Bot() {
       </button>
 
     </div>
-  </div>
 </footer>
     </div>
   )
