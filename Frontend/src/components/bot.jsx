@@ -10,11 +10,17 @@ function Bot() {
     const [input,setInput]=useState("")
     const [loading,setLoading]=useState(false)
 
+
+    useEffect(()=>{
+      fetch(`${API_URL}/ping`)
+      .then(()=>console.log("Server warmed"))
+      .catch(()=>{});
+    },[]);
+
     const messageEndRef=useRef(null);
     useEffect(()=>{
         messageEndRef.current?.scrollIntoView({behaviour:'smooth'});
     },[messages])
-
     const handleSendMessage=async ()=>{
         
         if(!input.trim() || loading)return ;
@@ -115,7 +121,8 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 w-auto max-w-[100px] sm:w-auto justify-center  items-center gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
+        className={`flex shrink-0 w-auto max-w-[100px] sm:w-auto justify-center  items-center
+           gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"
           :"bg-green-600 hover:bg-green-700"

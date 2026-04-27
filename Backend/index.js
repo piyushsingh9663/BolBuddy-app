@@ -12,6 +12,9 @@ const port = process.env.PORT || 3000
 app.use(express.json());
 app.use(cors());
 
+app.get("/ping",(req,res)=>{
+  res.status(200).json({status:"ok"});
+});
 //defining routes
 app.use("/bot/v1/", chatbotRoutes)
 
