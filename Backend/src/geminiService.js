@@ -13,7 +13,8 @@ export const generateReply=async(message)=>{
                     You are BolBuddy AI, A helpful AI chatbot.
 
 Write responses like ChatGPT and gemini:
-- Clean spacing
+-Answer based on the user's question
+-Keep response clear,well-structured and readable
 - Proper paragraphs
 - Bullet points when needed
 - Line breaks between ideas
@@ -52,7 +53,7 @@ Conclusion:
 React is beginner-friendly if your JavaScript is strong.
 
             
-            User:{message}
+            User:${message}
             `
         );
         const response=await result.response;
