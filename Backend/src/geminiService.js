@@ -6,7 +6,6 @@ export const generateReply=async(message)=>{
         const api_key=process.env.GEMINI_API_KEY;
         const genAI = new GoogleGenerativeAI(api_key);
         const model= genAI.getGenerativeModel({model:"gemini-2.5-flash"});
-        console.log(model);
         const result=await model.generateContent(
             `You are a chatbot.Answer clearly with proper formatting:
             -for long replies you can use long paragraphs or essay type
