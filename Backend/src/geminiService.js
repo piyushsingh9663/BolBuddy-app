@@ -4,10 +4,11 @@ import User from "../models/user.model.js";
 export const generateReply=async(message)=>{
         const api_key=process.env.GEMINI_API_KEY;
         const genAI = new GoogleGenerativeAI(api_key);
-        const models=["gemini-2.5-flash","gemini-3.1-flash-lite"];
+        const models=["gemini-2.5-flash","gemini-3.1-flash-lite-preview"];
         for(let m of models){
             try{
                 const model= genAI.getGenerativeModel({model:m});
+                console.log(model);
                 const result=await model.generateContent(`
                     You are BolBuddy AI, A helpful AI chatbot.
 
@@ -58,9 +59,8 @@ React is beginner-friendly if your JavaScript is strong.
         return response.text();
         }
         catch(err){
-            if(err.status!==429){
+            if(err.status!==429 || err.status!==503){
                console.log("Server error",err);
-               throw err;
             }
         }
     }
