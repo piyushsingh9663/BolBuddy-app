@@ -30,8 +30,7 @@ function Bot() {
             const res=await axios.post(`${API_URL}/bot/v1/message`,{
                 text:input
             })
-            console.log("Full data",res);
-            console.log("data",res.data);
+            
             if(res.status===200){
                 setMessages([...messages,{text:res.data.userMessage,sender:'user'},{text:res.data.botMessage, sender:'bot'}]);
             }
@@ -121,7 +120,7 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 w-auto max-w-[100px] sm:w-auto justify-center  items-center
+        className={`flex shrink-0 w-auto max-w-24 sm:w-auto justify-center  items-center
            gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"
