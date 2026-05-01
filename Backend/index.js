@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import chatbotRoutes from './routes/chatbot.routes.js';
+import authRoutes from "./routes/auth.routes.js"
 import cors from 'cors';
 
 const app = express();
@@ -17,7 +18,8 @@ app.get("/ping",(req,res)=>{
 });
 //defining routes
 app.use("/bot/v1/", chatbotRoutes)
-
+//definig auth routes
+app.use("/bot/auth/",authRoutes);
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
     console.log("Connected to MongoDB")

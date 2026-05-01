@@ -1,11 +1,21 @@
-import React from 'react'
-import Bot from './components/bot'
-function App() {
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Bot from "./components/Bot";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+export default function App() {
   return (
-    <div>
-      <Bot/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Default redirect */}
+        
+        <Route path="/" element={<ProtectedRoute><Bot/></ProtectedRoute>} />
+
+        {/* Public routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

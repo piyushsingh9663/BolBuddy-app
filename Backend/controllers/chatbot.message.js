@@ -1,29 +1,31 @@
-import Bot from "../models/bot.model.js";
-import User from "../models/user.model.js";
+import conversation from "../models/conversation.model.js";
 import { generateReply } from "../src/geminiService.js";
 
 
-export const Message=async(req,res)=>{
+export const sendMessage=async(req,res)=>{
   try{
     const {text}=req.body;
 
     if(!text?.trim()){
       return res.status(400).json({error:"Text cannot be empty"});
     }
-
-    const user=await User.create({
+    const userId=req.user.id;
+    const user=await conversation.create({
+      userId,
       sender:"user",
-      text
+      content:text
     });
 
     const botResponse=await generateReply(text);
 
-    const bot=await Bot.create({
-      text:botResponse
+    const bot=await conversation.create({
+      userId,
+      sender:"bot",
+      content:botResponse
     });
     return res.status(200).json({
-      userMessage:user.text,
-      botMessage:bot.text,
+      userMessage:user.content,
+      botMessage:bot.content,
     })
 }
     catch(error){

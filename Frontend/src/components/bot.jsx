@@ -1,4 +1,5 @@
 import React ,{useEffect,useRef,useState} from 'react'
+import {useNavigate} from "react-router-dom"
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"
 import axios from 'axios'
@@ -6,9 +7,13 @@ import {FaUserCircle} from 'react-icons/fa'
 import {API_URL} from '../config/api'
 function Bot() {
 
+  const navigate=useNavigate();
+  
+
     const [messages,setMessages]=useState([])
     const [input,setInput]=useState("")
     const [loading,setLoading]=useState(false)
+    const [openMenu,setOpenMenu]=useState(false);
 
 
     useEffect(()=>{
@@ -19,18 +24,36 @@ function Bot() {
 
     const messageEndRef=useRef(null);
     useEffect(()=>{
-        messageEndRef.current?.scrollIntoView({behaviour:'smooth'});
+        messageEndRef.current?.scrollIntoView({behavior:'smooth'});
     },[messages])
+
+    const username=localStorage.getItem("username")||"User";
+    const handleLogout=()=>{
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      window.location.href="/login";
+    }
+
+    useEffect(() => {
+  const handleClickOutside = () => setOpenMenu(false);
+  document.addEventListener("click", handleClickOutside);
+  return () => document.removeEventListener("click", handleClickOutside);
+}, []);
     const handleSendMessage=async ()=>{
         
         if(!input.trim() || loading)return ;
         setLoading(true);
         setInput("");
         try{
-            const res=await axios.post(`${API_URL}/bot/v1/message`,{
-                text:input
-            })
-            
+            const token=localStorage.getItem("token");
+            const res=await axios.post(`${API_URL}/bot/v1/message`,
+                {text:input},
+                {
+                  headers:{
+                    Authorization:`Bearer ${token}`
+                  }
+                }
+            );
             if(res.status===200){
                 setMessages([...messages,{text:res.data.userMessage,sender:'user'},{text:res.data.botMessage, sender:'bot'}]);
             }
@@ -60,7 +83,35 @@ function Bot() {
       <img src="/iconsBB.png" alt="Logo" className='w-10 h-10' />
       <h1 className="text-lg font-bold">BolBuddy</h1>
     </div>
-    <FaUserCircle size={30} className="cursor-pointer" />
+    <div className='relative'>
+      <FaUserCircle size={30}
+      className='cursor-pointer'
+      onClick={(e) => {
+    e.stopPropagation();
+    setOpenMenu(!openMenu);
+  }}
+
+      />
+      {openMenu && (
+        <div className='absolute right-0 top-full mt-2 w-48 text-sm bg-gray-900 border border-gray-600 rounded-xl shadow-lg z-50'>
+          {/* Username */}
+          <div className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700">
+            👤 {username}
+          </div>
+
+              {/* Logout */}
+          <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-800 rounded-b-xl"
+          >
+               🚪 Logout
+          </button>
+
+        </div>
+
+      )}
+
+    </div>
   </div>
 </header>
 
@@ -120,7 +171,7 @@ function Bot() {
       <button
       onClick={handleSendMessage}
       disabled={loading}
-        className={`flex shrink-0 w-auto max-w-24 sm:w-auto justify-center  items-center
+        className={`flex shrink-0 w-auto max-w-26 sm:w-auto justify-center  items-center
            gap-2 px-4 py-2 rounded-full text-white font-medium transition ${
           loading?
           "bg-gray-400 cursor-not-allowed"

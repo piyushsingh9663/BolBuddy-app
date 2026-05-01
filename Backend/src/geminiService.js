@@ -19,6 +19,7 @@ Write responses like ChatGPT and gemini:
 - Bullet points when needed
 - Line breaks between ideas
 - No long blocks of text
+- Remove excess and unecessary use of asterisk(*)
 
 Keep it:
 - concise

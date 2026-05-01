@@ -1,8 +1,9 @@
 import express from "express";
-import {Message} from '../controllers/chatbot.message.js'
+import {sendMessage} from '../controllers/chatbot.message.js'
+import { protect } from "../middleware/auth.middleware.js";
 
 const router=express.Router();
 
-router.post("/message",Message)
+router.post("/message",protect,sendMessage);
 
 export default router;
