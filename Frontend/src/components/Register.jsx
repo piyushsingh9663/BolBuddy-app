@@ -23,13 +23,20 @@ export default function Register() {
       localStorage.setItem("username",res.data.user.username);
       navigate("/login");
     } catch (err) {
+      if(err.status===400){
+        alert("Invalid Format");
+        return;
+      }
       alert("Registration failed");
     }
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-black text-white">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-80">
+    <div className="h-screen flex flex-col items-center justify-center bg-black text-white">
+      <div>
+        <img src="/iconsBB.png" alt="Logo" className='w-20 h-20 ' />
+      </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-80 py-2">
         <h2 className="text-xl font-bold text-center">Register</h2>
 
         <input
@@ -51,7 +58,7 @@ export default function Register() {
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
-        <button className="bg-green-600 py-2 rounded">Register</button>
+        <button className="bg-green-600 py-2 rounded cursor-pointer">Register</button>
 
         <p className="text-sm text-center">
           Already have an account?{" "}
