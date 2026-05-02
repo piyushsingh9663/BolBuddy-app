@@ -20,7 +20,7 @@ const limiter=rateLimit({
   max:100,
 });
 app.use(limiter);
-
+app.set("trust proxy",1);
 app.get("/ping",(req,res)=>{
   res.status(200).json({status:"ok"});
 });
