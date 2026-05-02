@@ -21,7 +21,7 @@ export default function Register() {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("username",res.data.user.username);
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       if(err.status===400){
         alert("Invalid Format");

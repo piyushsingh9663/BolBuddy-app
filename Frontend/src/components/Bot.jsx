@@ -28,8 +28,9 @@ function Bot() {
     },[messages])
 
     const username=localStorage.getItem("username")||"User";
-    const handleLogout=()=>{
-      localStorage.clear();
+    const handleLogout= async ()=>{
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       navigate('/login');
     }
 
