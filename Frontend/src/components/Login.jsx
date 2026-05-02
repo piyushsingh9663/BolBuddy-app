@@ -16,7 +16,19 @@ export default function Login() {
       localStorage.setItem("username",res.data.user.username);
       navigate("/");
     } catch (err) {
-      alert(err);
+      if(err.status===400){
+        alert("Invalid Format");
+        return;
+      }if(err.status===404){
+        alert("Invalid credentials");
+        navigate('/register');
+
+      }else if (err.status===401)alert("Invalid credentials");
+      else{
+        console.log(err);
+        alert(err);
+        return;
+      }
     }
   };
 

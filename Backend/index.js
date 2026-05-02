@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import chatbotRoutes from './routes/chatbot.routes.js';
 import authRoutes from "./routes/auth.routes.js"
 import cors from 'cors';
+import rateLimit from 'express-rate-limit'
+
 
 const app = express();
 dotenv.config();
@@ -12,6 +14,12 @@ const port = process.env.PORT || 3000
 
 app.use(express.json());
 app.use(cors());
+
+const limiter=rateLimit({
+  windowMs:15*60*1000,
+  max:100,
+});
+app.use(limiter);
 
 app.get("/ping",(req,res)=>{
   res.status(200).json({status:"ok"});

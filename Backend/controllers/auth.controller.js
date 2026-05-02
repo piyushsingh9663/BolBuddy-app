@@ -8,7 +8,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ error: "All fields required" });
     }
 
-    const exists = await User.findOne({ email });
+    const exists = await User.findOne({ email:String(email) });
     if (exists) {
       return res.status(400).json({ error: "Email already exists" });
     }
@@ -36,14 +36,14 @@ export const login = async (req, res) => {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email:String(email) });
     if (!user) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(404).json({ error: "User no found" });
     }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: "Invalid credentials" });
     }
 
     const token = generateToken(user._id);
@@ -66,7 +66,7 @@ export const deleteMe = async (req,res)=>{
         const userId=req.user.id;
         const user=await User.findByIdAndDelete(userId);
         if(!user)return res.status(404).json({error:"User not found"});
-        
+        localStorage.removeItem("token",req.data.token);
         return res.status(200).json({message:"Account Deleted"});
     }
     catch(err){

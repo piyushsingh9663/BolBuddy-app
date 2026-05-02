@@ -29,9 +29,8 @@ function Bot() {
 
     const username=localStorage.getItem("username")||"User";
     const handleLogout=()=>{
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      window.location.href="/login";
+      localStorage.clear();
+      navigate('/login');
     }
 
     useEffect(() => {
@@ -61,6 +60,7 @@ function Bot() {
           
         }
         catch(error){
+            localStorage.clear();
             console.log("Error sending message",error);
     
         }
@@ -93,9 +93,10 @@ function Bot() {
 
       />
       {openMenu && (
-        <div className='absolute right-0 top-full mt-2 w-48 text-sm bg-gray-900 border border-gray-600 rounded-xl shadow-lg z-50'>
+        <div className='absolute right-0 top-full mt-2 w-44 sm:w-48 max-w-[90vw] bg-gray-900 border
+          border-gray-600 text-sm rounded-xl shadow-lg z-50 transition-all duration-200 ease-in-out'>
           {/* Username */}
-          <div className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700">
+          <div className="px-4 py-2 text-sm text-gray-300 border-b border-gray-700 truncate">
             👤 {username}
           </div>
 
