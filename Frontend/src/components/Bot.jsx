@@ -62,7 +62,7 @@ function Bot() {
         }
         catch(error){
             localStorage.clear();
-            console.log("Error sending message",error);
+            navigate("/register");
     
         }
 
