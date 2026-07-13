@@ -1,5 +1,8 @@
 🤖 BolBuddy AI Chatbot
 
+![Login](./images/login.png)
+![Home](./images/home.png)
+
 A full-stack AI-powered chatbot that delivers dynamic responses using Google Gemini API.
 Built with a modern tech stack for scalability, performance, and clean UI.
 
